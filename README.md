@@ -137,8 +137,8 @@ Se a requisição for bem sucedida, espera-se uma mensagem "Relatório enviado c
 ```
 Como a URL é inválida, a saída real é um erro status 404. Requisição falhou!
 
-### 4. **Problemas e soluções**: \
-  1. Como tratar os erros e exceções e solucionar-los?
+### 4. **Problemas e soluções**: 
+_Como tratar os erros e exceções e solucionar-los?_
 - A primeira dificuldade foi pensar em como tratar as exceções de forma adequada. Como o servidor tem um estado dinâmico, tratar exceções de caráter temporário, presentes em retry_codes, foi a decisão imediata. As funções usaram loops para continuar com a tentativa de conexão após exceções capturadas dentro do bloco try e tratadas no bloco except. Essa abordagem garantiu que o código fosse resiliente a falhas temporárias, como erros de rede, sobrecarga do servidor ou indisponibilidade momentânea. A estratégia de backoff exponencial, onde o tempo de espera entre as tentativas dobra a cada falha, foi implementada para evitar sobrecarregar o servidor e aumentar as chances de sucesso nas tentativas subsequentes.
 - Além do tratamento de exceções relacionadas à conexão e às respostas da API, outra camada importante de robustez foi adicionada ao código: o tratamento de erros nos dados. Afinal, mesmo que a requisição seja bem-sucedida, os dados retornados podem estar incompletos, mal formatados ou inconsistentes. Para lidar com esses cenários, foi implementada uma verificação rigorosa dos dados. A função verify_data foi criada para garantir que todos os campos obrigatórios estivessem presentes nos dados retornados. Essa função não apenas verifica as chaves principais, como id, name, e email, mas também valida campos aninhados, como address e geo, garantindo que a estrutura dos dados esteja completa e correta. Caso algum campo esteja ausente, um aviso é registrado no log, e o item é descartado ou tratado de acordo com a lógica do programa.
   ```
@@ -152,5 +152,5 @@ Como a URL é inválida, a saída real é um erro status 404. Requisição falho
       return True, None
   ```
 
-### 5. **Conclusão**: \
+### 5. **Conclusão**:
 Os resultados obtidos atenderam as expectativas de acordo com o que foi proposto no documento do Test Case. O algoritmo cumpre com todas as requisições, trata possíveis erros e exceções, realiza a consumação da API fictícia, gera o documento com os dados esperados e envia o payload para o endpoint **send-email**.
