@@ -89,7 +89,7 @@ Se a requisição for bem sucedida, espera-se uma mensagem "Requisição bem-suc
 ```
 Como a URL é válida, a saída real é uma lista JSON com todos os usuários. Requisição bem-sucedida!
 
-3. **Requisição para enviar relatatórios**: \
+3. **Requisição para enviar relatórios**: \
 *Endpoint*: https://jsonplaceholder.typicode.com/send-email \
 *Método*: POST \
 *Payload*: O payload é um JSON contendo o relatório gerado:
